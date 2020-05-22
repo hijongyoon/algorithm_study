@@ -114,7 +114,7 @@ class Graph{
 
 public class KruskalAlgorithm {
     public static Graph g;
-    public static Graph MST;
+    public static Graph MST;// 원래 그래프를 보존해야할 경우를 생각해 MST 를 따로 만듦.
     public static void main(String[] args) throws IOException {
         ArrayList<Node> nodes=new ArrayList<>();
         ArrayList<Node> nodesOfMST=new ArrayList<>();
