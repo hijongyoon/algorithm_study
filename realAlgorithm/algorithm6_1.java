@@ -1,5 +1,6 @@
 package realAlgorithm;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -70,17 +71,21 @@ class Graph{
             putQ=0; num++;
         }
     }
-    public void allOfDFS(String str){
-        traversalOfDFS(findNode(str));
+    public void allOfDFS(String str,BufferedWriter bw) throws IOException {
+        traversalOfDFS(findNode(str),bw);
         for(Node n:nodes){
-            if(!n.visiting) traversalOfDFS(n);
+            if(!n.visiting) traversalOfDFS(n,bw);
         }
     }
-    public void traversalOfDFS(Node arrayNode){
+    public void traversalOfDFS(Node arrayNode,BufferedWriter bw) throws IOException {
         makeVisiting(arrayNode);
-        System.out.println(arrayNode.data+"    "+arrayNode.longitude+"    "+arrayNode.latitude);
+        //System.out.println(arrayNode.data+"    "+arrayNode.longitude+"    "+arrayNode.latitude);
+        bw.write(arrayNode.data+" ");
+        bw.write(arrayNode.longitude+" ");
+        bw.write(arrayNode.latitude+" ");
+        bw.newLine();
         for(Node n:arrayNode.edge){
-            if(!n.visiting) traversalOfDFS(findNode(n.data));
+            if(!n.visiting) traversalOfDFS(findNode(n.data),bw);
         }
     }
     public void makeDijkstra(String data){
@@ -146,7 +151,7 @@ public class algorithm6_1 {
         callOfRoadList2(g);
         hopsOfTen(g);
         g.makeInit(0);
-        hopsOfAll(g);
+        inputDFS(g);
         String str1=sc.nextLine();
         String str2=sc.nextLine();
         g.makeDijkstra(str1);
@@ -202,9 +207,13 @@ public class algorithm6_1 {
         String str=sc.nextLine();
         g.hopsOfTenByBFS(str);
     }
-    private static void hopsOfAll(Graph g){
-        Scanner sc=new Scanner(System.in);
-        String str=sc.nextLine();
-        g.allOfDFS(str);
+    public static void inputDFS(Graph g){
+        Path fp= Paths.get("DFS.txt");
+        try(BufferedWriter bw= Files.newBufferedWriter(fp)){
+            Scanner sc=new Scanner(System.in);
+            g.allOfDFS(sc.nextLine(),bw);
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }
