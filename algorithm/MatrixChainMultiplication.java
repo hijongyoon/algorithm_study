@@ -2,10 +2,8 @@ package algorithm;
 import java.util.*;
 
 class Point{
-    int data;
     int i,j,k;
-    public Point(int data,int i,int j,int k){
-        this.data=data;
+    public Point(int i,int j,int k){
         this.i=i;
         this.j=j;
         this.k=k;
@@ -34,7 +32,7 @@ public class MatrixChainMultiplication {
                         num=k;
                     }
                 }
-                list.add(new Point(m[i][j],i,j,num));
+                list.add(new Point(i,j,num));
             }
         }
         return m[0][n-1];
